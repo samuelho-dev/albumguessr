@@ -3,9 +3,14 @@ import { VscGithub } from "react-icons/vsc";
 import { FaRegShareSquare } from "react-icons/fa";
 import AudioPlayer from "../components/app/AudioPlayer";
 
-function Footer() {
+interface ThemeProps {
+  theme: string;
+  setTheme: Function;
+}
+
+function Footer(props: ThemeProps) {
   return (
-    <IconContext.Provider value={{ color: "white", className: "react-icons" }}>
+    <IconContext.Provider value={{ className: "react-icons" }}>
       <footer id="footer">
         <div className="plug-container">
           <VscGithub />

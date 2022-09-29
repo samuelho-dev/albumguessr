@@ -1,23 +1,24 @@
-import Image from "next/image";
-import spotifylogo from "../public/imgs/Spotify_logo_without_text.svg";
+import LoginBtn from "./login/LoginBtn";
+import ThemeSwitch from "./app/ThemeSwitch";
 
-function Navbar() {
+interface Props {
+  //THEME
+  theme: string;
+  setTheme: Function;
+
+  //LOGIN
+  loginPrompt: boolean;
+  setLoginPrompt: Function;
+}
+
+function Navbar(props: Props) {
   return (
     <nav id="navbar">
       <div className="navbar-container">
         <h1>Album Guessing Game</h1>
         <div className="navbtn-container">
-          <div className="theme-btn" placeholder="blur">
-            <div className="theme-circle"></div>
-          </div>
-          <button className="spotify-btn-container" placeholder="blur">
-            <div className="spotify-inner">
-              <h4>Log In with Spotify</h4>
-              <div className="spotify-btn">
-                <Image alt="spotify" src={spotifylogo} />
-              </div>
-            </div>
-          </button>
+          <ThemeSwitch theme={props.theme} setTheme={props.setTheme} />
+          <LoginBtn />
         </div>
       </div>
     </nav>

@@ -1,5 +1,6 @@
 //Container
 @use "./container";
+@use "./reset";
 
 //Abstract
 @use "../abstract/typography";
@@ -10,3 +11,4 @@
 @use "../components/login";
 @use "../components/main";
 @use "../components/navbar";
+@use "../components/audioplayer";

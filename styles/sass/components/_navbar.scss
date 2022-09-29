@@ -20,6 +20,8 @@
   width: 3.5rem;
   border-radius: 5rem;
   background: grey;
+  box-shadow: -0.2rem -0.1rem 0.2rem 0 #a2a2a2 inset;
+  cursor: pointer;
 }
 
 .theme-circle {
@@ -37,6 +39,7 @@
   background: rgb(70, 51, 136);
   box-shadow: inset 0px 0px 10px 4px rgb(47, 33, 91);
   border-radius: 5rem;
+  cursor: pointer;
 }
 
 .spotify-inner {
