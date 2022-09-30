@@ -5,10 +5,6 @@ interface Props {
   //THEME
   theme: string;
   setTheme: Function;
-
-  //LOGIN
-  loginPrompt: boolean;
-  setLoginPrompt: Function;
 }
 
 function Navbar(props: Props) {
