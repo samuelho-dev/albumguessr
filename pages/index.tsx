@@ -11,11 +11,8 @@ interface Props {
   //THEME
   theme: string;
   setTheme: Function;
-
-  //GAME
-  gameOptions: object;
-  setGameOptions: Function;
 }
+
 const Home: NextPage<Props> = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -38,7 +35,7 @@ const Home: NextPage<Props> = () => {
       <div className="base-root">
         <Navbar theme={theme!} setTheme={setTheme} />
         <SideBar />
-        <Main gameOptions={gameOptions} />
+        <Main />
         <Footer theme={theme!} setTheme={setTheme} />
       </div>
     </div>

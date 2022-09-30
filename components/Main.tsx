@@ -9,7 +9,6 @@ function Main() {
     const { items } = await res.json();
     setGameOptions(items);
   };
-  console.log(gameOptions);
 
   if (session) {
     getGameOptions();
@@ -19,7 +18,7 @@ function Main() {
           <div className="album-art-container">
             <img src="/" alt="/" />
           </div>
-          <GameOptions gameOptions={gameOptions} />
+          <GameOptions />
         </div>
       </div>
     );
