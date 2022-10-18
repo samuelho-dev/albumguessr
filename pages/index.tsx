@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import SideBar from "../components/Sidebar";
 import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
 
 interface Props {
   //THEME
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = () => {
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
