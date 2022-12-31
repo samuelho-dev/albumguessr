@@ -213,9 +213,11 @@ button {
 }
 
 .spotify-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 2.5rem;
   width: 14rem;
-  padding: 0.25rem;
   background: rgb(70, 51, 136);
   box-shadow: inset 0px 0px 10px 4px rgb(47, 33, 91);
   border-radius: 5rem;
@@ -224,9 +226,17 @@ button {
 
 .spotify-inner {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
   gap: 0.5rem;
+}
+
+.spotify-inner > h4 {
+  padding-top: 0.5rem;
+  display: flex;
+  text-align: center;
 }
 
 .spotify-btn {
