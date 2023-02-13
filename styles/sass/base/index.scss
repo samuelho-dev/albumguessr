@@ -1,14 +1,18 @@
-//Container
-@use "./container";
-@use "./reset";
+//Base
+@use './reset';
+@use './typography';
 
 //Abstract
-@use "../abstract/typography";
+@use '../abstract/mixin';
+@use '../abstract/variables';
+
+//Layout
+@use '../layout/container';
+@use '../layout/footer';
+@use '../layout/leaderboard';
+@use '../layout/main';
+@use '../layout/navbar';
 
 //Components
-@use "../components/footer";
-@use "../components/leaderboard";
-@use "../components/login";
-@use "../components/main";
-@use "../components/navbar";
-@use "../components/audioplayer";
+@use '../components/login';
+@use '../components/audioplayer';

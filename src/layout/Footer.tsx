@@ -1,16 +1,16 @@
-import { IconContext } from "react-icons";
-import { VscGithub } from "react-icons/vsc";
-import { FaRegShareSquare } from "react-icons/fa";
-import AudioPlayer from "../components/app/AudioPlayer";
+import { IconContext } from 'react-icons';
+import { VscGithub } from 'react-icons/vsc';
+import { FaRegShareSquare } from 'react-icons/fa';
+import AudioPlayer from '../components/AudioPlayer';
 
-interface ThemeProps {
-  theme: string;
-  setTheme: Function;
-}
+// interface ThemeProps {
+//   theme: string;
+//   setTheme: Function;
+// }
 
-function Footer(props: ThemeProps) {
+function Footer() {
   return (
-    <IconContext.Provider value={{ className: "react-icons" }}>
+    <IconContext.Provider value={{ className: 'react-icons' }}>
       <footer id="footer">
         <div className="plug-container">
           <VscGithub />

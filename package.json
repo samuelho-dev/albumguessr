@@ -1,5 +1,5 @@
 {
-  "name": "spotify-album-guess",
+  "name": "my-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,21 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "next": "12.3.1",
-    "next-auth": "^4.12.2",
-    "next-themes": "^0.2.1",
+    "@next-auth/supabase-adapter": "^0.2.1",
+    "@next/font": "13.1.6",
+    "@supabase/auth-helpers-nextjs": "^0.5.4",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/supabase-js": "^2.7.1",
+    "@types/node": "18.13.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.10",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "next": "13.1.6",
+    "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0",
-    "react-spring": "^9.5.5"
-  },
-  "devDependencies": {
-    "@types/node": "18.7.23",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
-    "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1",
-    "typescript": "4.8.3"
+    "react-icons": "^4.7.1",
+    "react-spring": "^9.6.1",
+    "sass": "^1.58.0",
+    "typescript": "4.9.5"
   }
 }
