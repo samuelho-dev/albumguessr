@@ -1,32 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import spotifylogo from '../assets/Spotify_logo_without_text.svg';
-// import { useSession, signIn, signOut } from 'next-auth/react';
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import LoginModal from '@/login/LoginModal';
 
 export default function LoginBtn() {
-  // const { data: session } = useSession();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const session = useSession();
 
-  // if (session) {
-  //   return (
-  //     <div>
-  //       signed in as
-  //       <br />
-  //       <button onClick={() => signOut()}>sign out</button>
-  //     </div>
-  //   );
-  // }
   return (
-    <button
-      className="spotify-btn-container"
-      placeholder="blur"
-      // onClick={() => signIn()}
-    >
-      <div className="spotify-inner">
-        <h4>Log In with Spotify</h4>
-        <div className="spotify-btn">
-          <Image alt="spotify" src={spotifylogo} />
-        </div>
-      </div>
-    </button>
+    <>
+      {!session ? (
+        <>
+          <button
+            className="spotify-btn-container"
+            placeholder="blur"
+            onClick={() => setShowLoginModal(!showLoginModal)}
+          >
+            <div className="spotify-inner">
+              <h4>Log In with Spotify</h4>
+              <div className="spotify-btn">
+                <Image alt="spotify" src={spotifylogo} />
+              </div>
+            </div>
+          </button>
+          <LoginModal
+            showLoginModal={showLoginModal}
+            setShowLoginModal={setShowLoginModal}
+          />
+        </>
+      ) : (
+        <div>You are logged in</div>
+      )}
+    </>
   );
 }

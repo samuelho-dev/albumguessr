@@ -1,27 +1,29 @@
-import { useSession } from 'next-auth/react';
+import {
+  useUser,
+  useSupabaseClient,
+  useSession,
+} from '@supabase/auth-helpers-react';
+
 import { useState } from 'react';
 
 function Main() {
+  const session = useSession();
   const [gameOptions, setGameOptions] = useState([]);
 
-  // if (session) {
-  //   getGameOptions();
-  //   return (
-  //     <div id="main">
-  //       <div className="app-container">
-  //         <div className="album-art-container">
-  //           <img src="/" alt="/" />
-  //         </div>
-  //         <GameOptions />
-  //       </div>
-  //     </div>
-  //   );
-  // }
   return (
     <div id="main">
-      <div className="app-container">
-        <h1>Please Sign In</h1>
-      </div>
+      {!session ? (
+        <div className="app-container">
+          <div className="album-art-container">
+            <img src="/" alt="/" />
+          </div>
+          <GameOptions />
+        </div>
+      ) : (
+        <div className="app-container">
+          <h1>Please Sign In</h1>
+        </div>
+      )}
     </div>
   );
 }

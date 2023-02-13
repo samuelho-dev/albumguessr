@@ -1,8 +1,8 @@
+import '../../styles/css/index.css';
+import { AppProps } from 'next/app';
 import { useState } from 'react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
-import { AppProps } from 'next/app';
-import '../../styles/css/index.css';
 
 function MyApp({
   Component,
