@@ -1,6 +1,6 @@
 import React from 'react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
-import supabase from './SupabaseClient';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 interface Modal {
   showLoginModal: boolean;
@@ -8,8 +8,9 @@ interface Modal {
 }
 
 export default function LoginModal(Modal: Modal) {
+  const supabase = useSupabaseClient();
   return (
-    <div>
+    <>
       {Modal.showLoginModal ? (
         <div
           style={{
@@ -31,6 +32,6 @@ export default function LoginModal(Modal: Modal) {
           />
         </div>
       ) : null}
-    </div>
+    </>
   );
 }
