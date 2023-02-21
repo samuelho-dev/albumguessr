@@ -1,32 +1,17 @@
-import { useUser, useSession } from '@supabase/auth-helpers-react';
-
-import { useState } from 'react';
-const baseUrl = `https://api.spotify.com/v1`;
-const curProfile = `me`;
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function Main() {
-  const [userProf, setUserProf] = useState({});
-  const session = useSession();
-
-  const spotifyApi = async () => {
-    try {
-      const res = await fetch(`${baseUrl}/${curProfile}`);
-      const data = await res.json();
-      setUserProf(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  console.log(userProf);
+  const [user, setUser] = useState(false);
   return (
     <div id="main">
-      {!session ? (
+      {!user ? (
         <div className="app-container">
           <h1>Please Sign In</h1>
         </div>
       ) : (
         <div className="app-container">
-          <button onClick={() => spotifyApi()}>WHERE</button>
+          <button>WHERE</button>
           <div>gameOption</div>
           <GameOptions />
         </div>
