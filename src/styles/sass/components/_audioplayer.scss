@@ -1,0 +1,32 @@
+@use "../abstract/" as a;
+
+.audio-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.audio-prog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.audio-btn-container button {
+  background: none;
+  padding: 0;
+}
+
+.forwardbackwardbtn {
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Gotham";
+}
+
+.playpausebtn {
+  font-size: 1.8rem;
+  cursor: pointer;
+  font-family: "Gotham";
+}
