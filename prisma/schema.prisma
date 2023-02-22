@@ -14,12 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -53,8 +47,51 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    points        String?
     accounts      Account[]
     sessions      Session[]
+    leaderboard   Leaderboard[]
+}
+
+model Leaderboard {
+    id       Int      @id @default(autoincrement())
+    user_id  Int
+    score    Int
+    user     User     @relation(fields: [user_id], references: [id])
+}
+
+
+model Game {
+    id            Int      @id @default(autoincrement())
+    user_id       Int
+    score         Int
+    created_at    DateTime @default(now())
+    tracks        Track[]  @relation("GameTrack")
+    game_tracks   GameTrack[]
+}
+
+model GameTrack {
+    game_id       Int
+    track_id      String
+    game          Game     @relation(fields: [game_id], references: [id])
+    track         Track    @relation(fields: [track_id], references: [id])
+
+    @@id([game_id, track_id])
+}
+
+model Track {
+    id            String   @id
+    name          String
+    artist        String
+    album_cover   String
+    games         Game[]   @relation("GameTrack")
+    game_tracks   GameTrack[]
+}
+
+model Album {
+    id            String    @id @default(cuid())
+    name          String    
+    img           String
 }
 
 model VerificationToken {
