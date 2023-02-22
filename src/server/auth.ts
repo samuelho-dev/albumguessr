@@ -18,7 +18,6 @@ import { prisma } from '~/server/db';
  */
 declare module 'next-auth' {
   interface Session extends DefaultSession {
-    accessToken: any;
     user: {
       id: string;
       // ...other properties
@@ -45,10 +44,9 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    session({ session, token, user }) {
+    session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-        session.accessToken = token.accessToken;
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
@@ -85,31 +83,3 @@ export const getServerAuthSession = (ctx: {
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
 };
-
-// import NextAuth from 'next-auth';
-// import SpotifyProvider from 'next-auth/providers/spotify';
-
-// export default NextAuth({
-//   providers: [
-//     SpotifyProvider({
-//       authorization:
-//         'https://accounts.spotify.com/authorize?scope=user-read-playback-state,user-modify-playback-state,playlist-read-private,user-library-modify,user-read-email,streaming,user-library-read',
-//       clientId: process.env.SPOTIFY_CLIENT_ID!,
-//       clientSecret: process.env.SPOTIFY_CLIENT_SECRET!,
-//     }),
-//   ],
-// callbacks: {
-//   async jwt({ token, account }) {
-//     if (account) {
-//       token.accessToken = account.refresh_token;
-//     }
-//     return token;
-//   },
-//   async session({ session, token, user }) {
-//     session.accessToken = token.accessToken;
-//     console.log(token);
-//     session.user = user;
-//     return session;
-//   },
-// },
-// });
