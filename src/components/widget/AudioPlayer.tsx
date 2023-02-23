@@ -1,8 +1,8 @@
-import { RiSkipForwardFill } from "react-icons/ri";
-import { RiSkipBackFill } from "react-icons/ri";
-import { GoPlay } from "react-icons/go";
-import { MdPauseCircleFilled } from "react-icons/md";
-import React, { useState, useRef } from "react";
+import { RiSkipForwardFill } from 'react-icons/ri';
+import { RiSkipBackFill } from 'react-icons/ri';
+import { GoPlay } from 'react-icons/go';
+import { MdPauseCircleFilled } from 'react-icons/md';
+import React, { useState, useRef } from 'react';
 
 function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -13,7 +13,7 @@ function AudioPlayer() {
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
-      console.log("audioPlayer.current.play();");
+      // console.log("audioPlayer.current.play();");
     }
   };
 

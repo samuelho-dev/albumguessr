@@ -1,5 +1,5 @@
-import LoginBtn from "./login/LoginBtn";
-import ThemeSwitch from "./app/ThemeSwitch";
+import LoginBtn from '../widget/LoginBtn';
+import ThemeSwitch from '../widget/ThemeSwitch';
 
 interface Props {
   //THEME

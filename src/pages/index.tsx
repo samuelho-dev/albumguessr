@@ -1,12 +1,13 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Main from "../components/Main";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import SideBar from "../components/Sidebar";
-import React, { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { useSession } from "next-auth/react";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+
+import Main from '../components/layout/Main';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
+import SideBar from '../components/layout/Sidebar';
+import React, { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { useSession } from 'next-auth/react';
 
 interface Props {
   //THEME
@@ -21,7 +22,7 @@ const Home: NextPage<Props> = () => {
 
   useEffect(() => {
     setMounted(true);
-    setTheme("dark");
+    setTheme('dark');
   }, []);
 
   if (!mounted) {
