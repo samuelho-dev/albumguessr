@@ -5,12 +5,11 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function LoginBtn() {
   const { data: session } = useSession();
-  console.log(session);
 
   if (session) {
     return (
       <div>
-        signed in as
+        {`signed in as ${session.user.name}`}
         <br />
         <button onClick={() => signOut()}>sign out</button>
       </div>

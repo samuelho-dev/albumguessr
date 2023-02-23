@@ -1,9 +1,17 @@
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '~/utils/api';
 
 function Main() {
   const { data: session } = useSession();
+  const [tracks, setTracks] = useState<Record<string, unknown>>({});
+
+  const useTracks = () => {
+    return api.getTracks.useQuery();
+  };
+
+  const { data: tracksData, isLoading: tracksLoading } = useTracks();
 
   if (session) {
     return (

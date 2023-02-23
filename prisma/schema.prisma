@@ -55,16 +55,14 @@ model User {
 
 model Leaderboard {
     id       Int      @id @default(autoincrement())
-    user_id  Int
+    user_id  String
     score    Int
     user     User     @relation(fields: [user_id], references: [id])
 }
 
-
 model Game {
     id            Int      @id @default(autoincrement())
     user_id       Int
-    score         Int
     created_at    DateTime @default(now())
     tracks        Track[]  @relation("GameTrack")
     game_tracks   GameTrack[]
