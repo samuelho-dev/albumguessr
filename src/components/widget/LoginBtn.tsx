@@ -2,10 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import spotifylogo from '../../../public/imgs/spotifylogo.svg';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { Session } from '../../../types/types';
 
 export default function LoginBtn() {
-  const { data: session } = useSession<Session>();
+  const { data: session } = useSession();
 
   if (session) {
     return (
@@ -20,7 +19,7 @@ export default function LoginBtn() {
     <button
       className="spotify-btn-container"
       placeholder="blur"
-      onClick={() => signIn('spotify')}
+      onClick={() => signIn()}
     >
       <div className="spotify-inner">
         <h4>Log In with Spotify</h4>

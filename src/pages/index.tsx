@@ -1,13 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-
 import Main from '../components/layout/Main';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { useSession } from 'next-auth/react';
 
 interface Props {
   //THEME
@@ -16,13 +14,13 @@ interface Props {
 }
 
 const Home: NextPage<Props> = () => {
-  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
     setTheme('dark');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!mounted) {
