@@ -17,15 +17,5 @@ export default function getRandomSearch(
   );
   let randomSearch = '';
 
-  // Places the wildcard character at the beginning, or both beginning and end, randomly.
-  switch (Math.round(Math.random())) {
-    case 0:
-      randomSearch = randomCharacter + 'f';
-      break;
-    case 1:
-      randomSearch = 'g' + randomCharacter + 'h';
-      break;
-  }
-
   return randomSearch;
 }
