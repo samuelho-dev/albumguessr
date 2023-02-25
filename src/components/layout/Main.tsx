@@ -1,49 +1,39 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
-import getRandom from '../../../utils/getRandom';
-import { useSession } from 'next-auth/react';
+import { useQuery } from '@tanstack/react-query';
+import { useSession, signIn } from 'next-auth/react';
+import Game from '../../lib/Game';
 
 // Access token in session.user.accessToken
 function Main() {
   const { data: session } = useSession();
-  const [searchResults, setSearchResults] = useState({});
-  const accessToken = session?.user?.accessToken;
-  const query = {
-    q: getRandom(1, 20, true),
-    type: 'track',
-    limit: getRandom(1, 10, false),
-    offset: getRandom(1, 10, false),
-    include_external: 'audio',
-  };
 
-  const { data, error, isLoading } = useQuery('search', () =>
-    // fetch(
-    //   `https://api.spotify.com/v1/search
-    //   ?q=${query.q}&type=${query.type}
-    //   &market=ES&limit=${query.limit}&offset=${query.offset}`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   },
-    fetch(`https://api.spotify.com/v1/me`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }).then((res) => res.json()),
+  const { data, error, isLoading } = useQuery(['search'], () =>
+    fetch('/api/spotify').then((res) => res.json()),
   );
 
-  console.log(data, 'data');
-  console.log(accessToken, 'token');
+  useEffect(() => {
+    if (data?.error?.message === 'The access token expired') {
+      signIn(); // Force sign in to hopefully resolve error
+    }
+  }, [data]);
 
+  console.log(data, 'front end');
   if (session) {
+    if (isLoading) {
+      return (
+        <div id="main">
+          <span>Loading...</span>
+        </div>
+      );
+    }
+    if (error) <span>{data.error.message}</span>;
     return (
       <div id="main">
         <div className="app-container">
           <div className="album-art-container">
             <img src="/" alt="/" />
           </div>
-          <GameOptions />
+          <Game options={data.albums} />
         </div>
       </div>
     );
@@ -58,14 +48,3 @@ function Main() {
 }
 
 export default Main;
-
-function GameOptions() {
-  return (
-    <div className="game-options-container">
-      <div>gameOption</div>
-      <div>gameOption</div>
-      <div>gameOption</div>
-      <div>gameOption</div>
-    </div>
-  );
-}
