@@ -11,11 +11,16 @@ export default function getRandomSearch(
   // A list of all characters that can be chosen.
   const characters = 'abcdefghijklmnopqrstuvwxyz';
 
-  // Gets a random character from the characters string.
-  const randomCharacter = characters.charAt(
-    Math.floor(Math.random() * characters.length),
-  );
   let randomSearch = '';
+
+  // Generate a random string with a length between min and max
+  const length = Math.floor(Math.random() * (max - min + 1)) + min;
+  for (let i = 0; i < length; i++) {
+    // Gets a random character from the characters string and appends it to the randomSearch string.
+    randomSearch += characters.charAt(
+      Math.floor(Math.random() * characters.length),
+    );
+  }
 
   return randomSearch;
 }
