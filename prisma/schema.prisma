@@ -17,6 +17,7 @@ datasource db {
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
+    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId            String
     type              String
     provider          String
@@ -28,68 +29,73 @@ model Account {
     scope             String?
     id_token          String? @db.Text
     session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
 }
 
 model Session {
     id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId       String
+    sessionToken String   @unique
+    expires      DateTime
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    points        String?
-    accounts      Account[]
-    sessions      Session[]
-    leaderboard   Leaderboard[]
+    id              String    @id @default(cuid())
+    name            String?
+    email           String?   @unique
+    external_urls   String?
+    href            String?
+    uri             String?
+    points          String?
+    images          String[]
+    accounts        Account[]
+    sessions        Session[]
+    game            Game[]
+    leaderboard     Leaderboard[]
 }
 
 model Leaderboard {
-    id       Int      @id @default(autoincrement())
-    user_id  String
-    score    Int
-    user     User     @relation(fields: [user_id], references: [id])
+    id          Int      @id @default(autoincrement())
+    user        User     @relation(fields: [user_id], references: [id])
+    user_id     String
+    score       Int
 }
 
 model Game {
-    id            Int      @id @default(autoincrement())
-    user_id       Int
-    created_at    DateTime @default(now())
-    tracks        Track[]  @relation("GameTrack")
-    game_tracks   GameTrack[]
+    id              Int     @id @default(autoincrement())
+    user            User    @relation(fields: [user_id], references: [id])
+    user_id         String     
+    correct         Boolean
+    created_at      DateTime @default(now())
+    album           Album[]  @relation("GameTrack")
+    game_tracks     GameTrack[]
 }
 
 model GameTrack {
-    game_id       Int
-    track_id      String
     game          Game     @relation(fields: [game_id], references: [id])
-    track         Track    @relation(fields: [track_id], references: [id])
-
-    @@id([game_id, track_id])
-}
-
-model Track {
-    id            String   @id
-    name          String
-    artist        String
-    album_cover   String
-    games         Game[]   @relation("GameTrack")
-    game_tracks   GameTrack[]
+    game_id       Int
+    album         Album    @relation(fields: [album_id], references: [id])
+    album_id      String
+    @@id([game_id, album_id])
 }
 
 model Album {
-    id            String    @id @default(cuid())
-    name          String    
-    img           String
+    id              String      @id
+    name            String
+    artist_id       Int
+    album_cover     String
+    games           Game[]      @relation("GameTrack")
+    game_tracks     GameTrack[] 
+    images          String[]
+    artist          Artist      @relation(fields: [artist_id], references: [id])
+}
+
+model Artist {
+    id          Int     @id @default(autoincrement())
+    name        String
+    album       Album[]
 }
 
 model VerificationToken {
