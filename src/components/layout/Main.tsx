@@ -1,40 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSession, signIn } from 'next-auth/react';
-import Game from '../../lib/Game';
+import Game from '../widget/Game';
 
 // Access token in session.user.accessToken
 function Main() {
   const { data: session } = useSession();
 
   const { data, error, isLoading } = useQuery(['search'], () =>
-    fetch('/api/spotify').then((res) => res.json()),
+    fetch('/api/spotifySearch').then((res) => res.json()),
   );
 
-  useEffect(() => {
-    if (data?.error?.message === 'The access token expired') {
-      signIn(); // Force sign in to hopefully resolve error
-    }
-  }, [data]);
+  // const spotifyUser = useQuery(['me'], () =>
+  //   fetch('/api/spotifyUser').then((res) => res.json()),
+  // );
 
-  console.log(data, 'front end');
-  if (session) {
-    if (isLoading) {
-      return (
-        <div id="main">
-          <span>Loading...</span>
-        </div>
-      );
+  useEffect(() => {
+    console.log(data, 'data');
+    if (data?.error?.message === 'The access token expired') {
+      signIn();
     }
-    if (error) <span>{data.error.message}</span>;
+  }, [data, session]);
+
+  if (session) {
     return (
       <div id="main">
-        <div className="app-container">
-          <div className="album-art-container">
-            <img src="/" alt="/" />
+        {isLoading ? <span>Loading...</span> : null}
+        {error ? <span>Error!</span> : null}
+        {data ? (
+          <div className="app-container">
+            <Game options={data} />
           </div>
-          <Game options={data.albums} />
-        </div>
+        ) : null}
       </div>
     );
   }
