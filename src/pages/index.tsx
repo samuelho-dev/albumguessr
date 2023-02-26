@@ -6,6 +6,7 @@ import Footer from '../components/layout/Footer';
 import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   //THEME
@@ -23,6 +24,10 @@ const Home: NextPage<Props> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const spotifyUser = useQuery(['me'], () =>
+    fetch('/api/spotifyUser').then((res) => res.json()),
+  );
+
   if (!mounted) {
     return null;
   }
@@ -36,8 +41,8 @@ const Home: NextPage<Props> = () => {
       <div className="base-root">
         <Navbar theme={theme!} setTheme={setTheme} />
         <SideBar />
-        <Main />
-        <Footer theme={theme!} setTheme={setTheme} />
+        <Main spotifyUserData={spotifyUser.data} />
+        <Footer />
       </div>
     </div>
   );
