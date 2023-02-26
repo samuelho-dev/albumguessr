@@ -1,11 +1,12 @@
 import getRandomSearch from './getRandom';
 
 export default function gameOptions(options) {
-  const gameOptions = options.map((item) => {
+  const gameOptions = options.albums.items.map((item) => {
     const gameOption = {
       artists: item.artists,
+      external_urls: item.external_urls,
+      href: item.href,
       id: item.id,
-      external_url: item.external_urls,
       images: item.images,
       name: item.name,
       release_date: item.release_date,
@@ -15,7 +16,7 @@ export default function gameOptions(options) {
     return gameOption;
   });
   const answerIndex = getRandomSearch(1, gameOptions.length - 1, false);
-  // console.log('game index', answerIndex, gameOptions[answerIndex]);
+
   gameOptions[answerIndex].answer = true;
   return gameOptions;
 }
