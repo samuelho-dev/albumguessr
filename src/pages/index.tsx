@@ -23,14 +23,15 @@ const Home: NextPage<Props> = () => {
     setTheme('dark');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const spotifyUser = useQuery(['me'], () =>
-    fetch('/api/spotifyUser').then((res) => res.json()),
+  const search = useQuery(['search'], () =>
+    fetch('/api/spotifySearch').then((res) => res.json()),
   );
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) null;
+
+  const answerTrack = search?.data?.find(
+    (option: { answer: any }) => !!option.answer,
+  );
 
   return (
     <div id="root">
@@ -41,8 +42,8 @@ const Home: NextPage<Props> = () => {
       <div className="base-root">
         <Navbar theme={theme!} setTheme={setTheme} />
         <SideBar />
-        <Main spotifyUserData={spotifyUser.data} />
-        <Footer />
+        <Main searchLoading={search.isLoading} searchData={search.data} />
+        <Footer answerTrack={answerTrack} />
       </div>
     </div>
   );
