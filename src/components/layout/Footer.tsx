@@ -2,13 +2,10 @@ import { IconContext } from 'react-icons';
 import { VscGithub } from 'react-icons/vsc';
 import { FaRegShareSquare } from 'react-icons/fa';
 import AudioPlayer from '../widget/AudioPlayer';
-
-interface ThemeProps {
-  theme: string;
-  setTheme: Function;
+interface Props {
+  answerTrack: any;
 }
-
-function Footer(props: ThemeProps) {
+function Footer({ answerTrack }: Props) {
   return (
     <IconContext.Provider value={{ className: 'react-icons' }}>
       <footer id="footer">
@@ -18,7 +15,7 @@ function Footer(props: ThemeProps) {
             <p>Check out my other projects!</p>
           </div>
         </div>
-        <AudioPlayer />
+        <AudioPlayer answerTrack={answerTrack} />
         <FaRegShareSquare />
       </footer>
     </IconContext.Provider>

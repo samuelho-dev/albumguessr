@@ -18,3 +18,13 @@ function Leaderboard() {
     </div>
   );
 }
+// const topUsers = await prisma.leaderboard.findMany({
+//   take: 10,
+//   orderBy: {
+//     score: 'desc',
+//   },
+//   select: {
+//     user: true,
+//     score: true,
+//   },
+// });
