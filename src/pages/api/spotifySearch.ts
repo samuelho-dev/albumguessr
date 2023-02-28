@@ -16,13 +16,12 @@ export default async function handler(
     q: getRandom(1, 3, true),
     offset: getRandom(1, 15, false),
   };
-
   try {
     fetch(
-      `https://api.spotify.com/v1/search?q=${query.q}&type=album&market=ES&limit=5&offset=${query.offset}`,
+      `https://api.spotify.com/v1/search?q=${query.q}&type=album&market=ES&limit=4&offset=${query.offset}`,
       {
         headers: {
-          Authorization: `Bearer ${(<MySession>session)?.user?.accessToken}`,
+          Authorization: `Bearer ${<MySession>session?.accessToken}`,
         },
       },
     )

@@ -28,13 +28,9 @@ export default async function handler(
             id: data.id,
             name: data.display_name,
             email: data.email,
-            external_urls: data.external_urls?.spotify,
-            href: data.href,
-            uri: data.uri,
           },
         }),
       )
-      .then((user) => res.send(user))
       .catch((err) => console.error(err));
   } catch (err) {
     res.status(500);
