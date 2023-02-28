@@ -2,34 +2,56 @@ import { RiSkipForwardFill } from 'react-icons/ri';
 import { RiSkipBackFill } from 'react-icons/ri';
 import { GoPlay } from 'react-icons/go';
 import { MdPauseCircleFilled } from 'react-icons/md';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
+import SpotifyPlayer from './SpotifyPlayer';
 
-function AudioPlayer() {
+interface Props {
+  answerTrack: any;
+}
+
+function AudioPlayer({ answerTrack }: Props) {
+  const { data: session } = useSession();
+  const [playerState, setPlayerState] = useState<boolean>(false);
+  const [volume, setVolume] = useState(50);
+  const [currentTrack, setCurrentTrack] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
 
-  //References
-  const audioPlayer = useRef();
+  useEffect;
+
+  const mutation = useMutation({
+    mutationFn: (endpoint: string) => {
+      return fetch(`/api/spotifyPlayer`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          endpoint: endpoint,
+          uri: answerTrack.uri,
+        }),
+      });
+    },
+    onSuccess: (data) => {
+      console.log(data, 'onsuccess');
+      setPlayerState(!playerState);
+    },
+  });
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (isPlaying) {
-      // console.log("audioPlayer.current.play();");
+    if (answerTrack) {
+      const endpoint = !playerState ? 'play' : 'pause';
+      mutation.mutate(endpoint);
     }
   };
 
   return (
     <div className="audio-player-container">
-      {/* <audio ref={audioPlayer} src="/"></audio> */}
       <div className="audio-btn-container">
-        <button className="forwardbackwardbtn">
-          <RiSkipBackFill color="#B2B3B2" />
-        </button>
+        <RiSkipBackFill color="#B2B3B2" className="forwardbackwardbtn" />
         <button className="playpausebtn" onClick={togglePlayPause}>
-          {isPlaying ? <MdPauseCircleFilled /> : <GoPlay />}
+          {!playerState ? <GoPlay /> : <MdPauseCircleFilled />}
+          <SpotifyPlayer trackUri={answerTrack?.uri} />
         </button>
-        <button className="forwardbackwardbtn">
-          <RiSkipForwardFill color="#B2B3B2" />
-        </button>
+        <RiSkipForwardFill color="#B2B3B2" className="forwardbackwardbtn" />
       </div>
       <div className="audio-prog-container">
         {/* Current time */}
@@ -45,7 +67,6 @@ function AudioPlayer() {
           <p>1:00</p>
         </div>
       </div>
-      <audio src="/"></audio>
     </div>
   );
 }
