@@ -1,4 +1,4 @@
-@use "../abstract/" as a;
+@use '../abstract/' as a;
 
 #root {
   position: relative;
@@ -8,9 +8,9 @@
 .base-root {
   display: grid;
   grid-template-areas:
-    "navbar navbar"
-    "sidebar main"
-    "footer footer";
+    'navbar navbar'
+    'sidebar main'
+    'footer footer';
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
   height: 100%;
@@ -41,8 +41,8 @@
     );
   border: 1px solid black;
   box-shadow: 0 0.5rem 0.5rem 0 black;
-  width: 17rem;
-  padding: 1rem 0;
+  width: 20rem;
+  padding-top: 1rem;
 }
 
 #main {

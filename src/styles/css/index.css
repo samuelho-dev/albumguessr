@@ -5,15 +5,10 @@ h4,
 h5,
 p {
   font-family: Gotham;
-  margin: 0;
-}
-
-h5 {
-  font-size: 0.8rem;
 }
 
 p {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 #root {
@@ -49,8 +44,8 @@ p {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(180deg, rgba(202, 202, 202, 0.2) 0%, rgba(92, 92, 92, 0.1) 66.63%, rgba(82, 82, 82, 0.2) 100%);
   border: 1px solid black;
   box-shadow: 0 0.5rem 0.5rem 0 black;
-  width: 17rem;
-  padding: 1rem 0;
+  width: 20rem;
+  padding-top: 1rem;
 }
 
 #main {
@@ -157,17 +152,35 @@ button {
   align-items: center;
 }
 
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .album-art-container {
-  padding: 0.5rem;
-  background: grey;
-  border-radius: 1rem;
+  border: 1rem solid transparent;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  width: 50%;
+  box-shadow: rgba(167, 167, 167, 0.2) 0px 1px 2px 0px;
 }
 
 .game-options-container {
   display: grid;
   grid-template-columns: auto auto;
+}
+
+.game-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
-  padding-top: 2rem;
 }
 
 .leaderboard-container {
