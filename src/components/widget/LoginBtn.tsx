@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import spotifylogo from '../../../public/imgs/spotifylogo.svg';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -6,10 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function LoginBtn() {
   const { data: session } = useSession();
+  useEffect(() => {}, [session]);
 
-  const spotify = useQuery(['me', session], () =>
-    fetch('/api/spotifyUser').then((res) => res.json()),
-  );
   // console.log(spotify.data, 'login btn');
   if (session) {
     return (
