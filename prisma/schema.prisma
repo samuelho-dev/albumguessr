@@ -45,9 +45,6 @@ model User {
     id              String    @id
     name            String?
     email           String?   @unique
-    external_urls   String?
-    href            String?
-    uri             String?
     accounts        Account[]
     sessions        Session[]
     game            Game[]
