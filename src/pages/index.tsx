@@ -15,19 +15,26 @@ interface Props {
 }
 
 const Home: NextPage<Props> = () => {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
+  const [fetchNewGame, setFetchNewGame] = useState(false);
   useEffect(() => {
-    setMounted(true);
     setTheme('dark');
+    setFetchNewGame(!fetchNewGame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const search = useQuery(['search'], () =>
-    fetch('/api/spotifySearch').then((res) => res.json()),
-  );
 
-  if (!mounted) null;
+  const search = useQuery(
+    ['search'],
+    () =>
+      fetch('/api/spotifySearch')
+        .then((res) => {
+          setFetchNewGame(!fetchNewGame);
+          return res.json();
+        })
+        .catch((err) => console.error(err)),
+    { enabled: fetchNewGame },
+  );
+  const fetchQuestion = () => setFetchNewGame(!fetchNewGame);
 
   const answerTrack = search?.data?.find(
     (option: { answer: any }) => !!option.answer,
@@ -42,7 +49,11 @@ const Home: NextPage<Props> = () => {
       <div className="base-root">
         <Navbar theme={theme!} setTheme={setTheme} />
         <SideBar />
-        <Main searchLoading={search.isLoading} searchData={search.data} />
+        <Main
+          searchLoading={search.isLoading}
+          searchData={search.data}
+          fetchQuestion={fetchQuestion}
+        />
         <Footer answerTrack={answerTrack} />
       </div>
     </div>
