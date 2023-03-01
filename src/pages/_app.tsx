@@ -13,7 +13,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 1000 * 10,
+        staleTime: 1000 * 3,
       },
     },
   });

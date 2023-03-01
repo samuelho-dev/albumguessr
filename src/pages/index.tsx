@@ -7,6 +7,7 @@ import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useQuery } from '@tanstack/react-query';
+import { io } from 'socket.io-client';
 
 interface Props {
   //THEME
@@ -14,26 +15,40 @@ interface Props {
   setTheme: Function;
 }
 
+let socket;
+
 const Home: NextPage<Props> = () => {
   const { theme, setTheme } = useTheme();
   const [fetchNewGame, setFetchNewGame] = useState(false);
+
   useEffect(() => {
     setTheme('dark');
     setFetchNewGame(!fetchNewGame);
+    socketInitializer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const socketInitializer = async () => {
+    await fetch('/api/socket');
+    socket = io();
+
+    socket.on('connect', () => {
+      console.log('connected');
+    });
+  };
 
   const search = useQuery(
     ['search'],
     () =>
       fetch('/api/spotifySearch')
         .then((res) => {
-          setFetchNewGame(!fetchNewGame);
+          fetchQuestion();
           return res.json();
         })
         .catch((err) => console.error(err)),
     { enabled: fetchNewGame },
   );
+
   const fetchQuestion = () => setFetchNewGame(!fetchNewGame);
 
   const answerTrack = search?.data?.find(
