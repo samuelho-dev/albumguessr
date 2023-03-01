@@ -29,7 +29,7 @@ function SpotifyPlayer({ trackUri }: Props) {
         setPlayer(player);
       };
     }
-    console.log(player, 'player PLS LOG');
+
     // player.connect().then((success: any) => {
     //   if (success) {
     //     console.log('The Web Playback SDK successfully connected to Spotify!');

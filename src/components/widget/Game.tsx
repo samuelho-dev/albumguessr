@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import gameOptions from '../../../utils/gameOptions';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import AnswerSelected from './AnswerSelected';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   options: any;
@@ -9,47 +10,52 @@ interface Props {
 }
 
 export default function Game({ options, fetchQuestion }: Props) {
-  const [answerSelected, setAnswerSelected] = useState(false);
-  const [correctAnswer, setCorrectAnswer] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState(null);
+  const [optionSelected, setOptionSelected] = useState(false);
 
-  useEffect(() => {
-    if (correctAnswer) {
-      console.log('correct answer!');
-    }
-  }, [correctAnswer]);
-
-  const handleAnswerSelect = (track) => {
-    if (track.answer) handleCorrectAnswer();
+  const handleAnswerSelect = (track: any) => {
+    let answer = false;
+    setSelectedTrack(track);
+    handleOptionSelected();
     fetchQuestion();
-    setAnswerSelected(!answerSelected);
+    if (track.answer) {
+      answer = true;
+    }
+    fetch('/api/gameResults', {
+      method: 'PUT',
+      body: JSON.stringify({ correct: answer }),
+    });
   };
 
-  const handleCorrectAnswer = () => {
-    setCorrectAnswer(!correctAnswer);
-  };
+  const handleOptionSelected = () => setOptionSelected(!optionSelected);
 
   return (
     <div className="game-container">
-      {correctAnswer
-        ? options.map((track, i) => (
-            <div
-              key={i}
-              onClick={() => handleAnswerSelect(track)}
-              className="game-option"
-            >
-              <h4>
-                {track.name}
-                {`${track.answer ? ` : Answer` : null}`}
-              </h4>
+      {!optionSelected ? (
+        options.map((track: any, i: number) => (
+          <div
+            key={i}
+            onClick={() => handleAnswerSelect(track)}
+            className="game-option"
+          >
+            <h4>
+              {track.name}
+              {track.answer ? ` : Answer` : null}
+            </h4>
 
-              <img
-                className="album-art-container"
-                src={track.images[0].url}
-                alt="option img"
-              ></img>
-            </div>
-          ))
-        : null}
+            <img
+              className="album-art-container"
+              src={track.images[0].url}
+              alt="option img"
+            ></img>
+          </div>
+        ))
+      ) : (
+        <AnswerSelected
+          handleOptionSelected={handleOptionSelected}
+          selectedTrack={selectedTrack}
+        />
+      )}
     </div>
   );
 }

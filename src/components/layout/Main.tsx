@@ -6,19 +6,12 @@ import Game from '../widget/Game';
 interface Props {
   searchLoading: boolean;
   searchData: any;
-
   fetchQuestion: Function;
 }
-function Main({
-  searchLoading,
-  searchData,
-  fetchQuestion,
-  answerTrack,
-}: Props) {
+function Main({ searchLoading, searchData, fetchQuestion }: Props) {
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log(searchData, 'data');
     if (searchData?.error?.message === 'The access token expired') {
       signIn();
     }
