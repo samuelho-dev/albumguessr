@@ -1,5 +1,8 @@
 import NextAuth from 'next-auth';
 import SpotifyProvider from 'next-auth/providers/spotify';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const scope = `user-read-recently-played user-read-playback-state 
 user-top-read user-modify-playback-state user-read-currently-playing  
@@ -24,7 +27,7 @@ async function refreshAccessToken(token: any) {
     });
 
     const refreshedTokens = await response.json();
-    console.log(token, 'refresh token');
+    // console.log(token, 'refresh token');
     if (!response.ok) {
       throw refreshedTokens;
     }
@@ -81,21 +84,46 @@ export default NextAuth({
       session.error = token.error;
       return session;
     },
+    async signIn({ user, account }) {
+      console.log({ user: user, account: account });
+      const { id, name, email } = user;
+      try {
+        await prisma.user.upsert({
+          where: { id },
+          create: {
+            id: id,
+            name: name,
+            email: email,
+            leaderboard: {
+              create: { score: 0 },
+            },
+            accounts: {
+              create: {
+                type: account.type,
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                refresh_token: account.refresh_token,
+                access_token: account.access_token,
+                expires_at: account.expires_at,
+                token_type: account.token_type,
+                scope: account.scope,
+              },
+            },
+          },
+
+          update: {
+            // accounts: {
+            //   refresh_token: account.refresh_token,
+            // },
+          },
+        });
+      } catch (err) {
+        console.error(err);
+        return false;
+      } finally {
+        prisma.$disconnect();
+      }
+      return true;
+    },
   },
 });
-
-// await prisma.account.upsert({
-//   where: { id: user.id },
-//   update: { refresh_token: account.refresh_token },
-//   create: {
-//     userId: user.id,
-//     type: account.type,
-//     provider: account.provider,
-//     providerAccountId: account.providerAccountId,
-//     refresh_token: account.refresh_token,
-//     access_token: account.access_token,
-//     expires_at: account.expires_at,
-//     token_type: account.token_type,
-//     scope: account.scope,
-//   },
-// });
