@@ -7,7 +7,6 @@ import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useQuery } from '@tanstack/react-query';
-import { io } from 'socket.io-client';
 
 interface Props {
   //THEME
@@ -15,45 +14,46 @@ interface Props {
   setTheme: Function;
 }
 
-let socket;
-
 const Home: NextPage<Props> = () => {
   const { theme, setTheme } = useTheme();
   const [fetchNewGame, setFetchNewGame] = useState(false);
+  const [uris, setUri] = useState([]);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setTheme('dark');
     setFetchNewGame(!fetchNewGame);
-    socketInitializer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const socketInitializer = async () => {
-    await fetch('/api/socket');
-    socket = io();
-
-    socket.on('connect', () => {
-      console.log('connected');
-    });
-  };
 
   const search = useQuery(
     ['search'],
     () =>
       fetch('/api/spotifySearch')
-        .then((res) => {
-          fetchQuestion();
-          return res.json();
+        .then((res) => res.json())
+        .then((data) => {
+          setFetchNewGame(!fetchNewGame);
+          const copy = [...uris];
+          const answerTrack = data.find(
+            (option: { answer: any }) => !!option.answer,
+          );
+          copy.push(answerTrack);
+          console.log('index', copy);
+          setUri(copy);
+          return data;
         })
+
         .catch((err) => console.error(err)),
     { enabled: fetchNewGame },
   );
 
-  const fetchQuestion = () => setFetchNewGame(!fetchNewGame);
-
   const answerTrack = search?.data?.find(
     (option: { answer: any }) => !!option.answer,
   );
+  const fetchQuestion = () => {
+    setFetchNewGame(!fetchNewGame);
+    setIndex(index + 1);
+  };
 
   return (
     <div id="root">
@@ -67,9 +67,10 @@ const Home: NextPage<Props> = () => {
         <Main
           searchLoading={search.isLoading}
           searchData={search.data}
+          answerTrack={answerTrack}
           fetchQuestion={fetchQuestion}
         />
-        <Footer answerTrack={answerTrack} />
+        <Footer answerTrack={answerTrack} uris={uris} index={index} />
       </div>
     </div>
   );

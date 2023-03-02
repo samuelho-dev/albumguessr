@@ -1,27 +1,32 @@
 import React from 'react';
 
 interface Props {
-  selectedTrack: any;
+  correct: boolean;
+  answerTrack: any;
   handleOptionSelected: Function;
 }
 
-function AnswerSelected({ handleOptionSelected, selectedTrack }: Props) {
+function AnswerSelected({ handleOptionSelected, answerTrack, correct }: Props) {
   return (
-    <div onClick={() => handleOptionSelected()}>
-      <h2>{selectedTrack.name}</h2>
+    <div onClick={() => handleOptionSelected()} className="selected-answer">
+      <h1>{correct ? 'Correct!' : 'Not Quite'}</h1>
+      <h2>{answerTrack.name}</h2>
       <div>
-        {selectedTrack.artists.map((artist, i) => (
-          <a key={i} href={selectedTrack.href}>
-            <p>{artist.name}</p>
+        <div>
+          <img
+            className="album-art-container"
+            src={answerTrack.images[0].url}
+            alt="option img"
+          ></img>
+          <p>Released : {answerTrack.release_date}</p>
+        </div>
+
+        {answerTrack.artists.map((artist, i) => (
+          <a key={i} href={answerTrack.href}>
+            <span>{artist.name}</span>
           </a>
         ))}
       </div>
-      <img
-        className="album-art-container"
-        src={selectedTrack.images[0].url}
-        alt="option img"
-      ></img>
-      <sub>Released : {selectedTrack.release_date}</sub>
     </div>
   );
 }
