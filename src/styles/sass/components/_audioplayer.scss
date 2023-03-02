@@ -1,4 +1,8 @@
-@use "../abstract/" as a;
+@use '../abstract/' as a;
+
+.audio-player-container {
+  width: 20rem;
+}
 
 .audio-btn-container {
   display: flex;
@@ -22,11 +26,11 @@
 .forwardbackwardbtn {
   cursor: pointer;
   font-size: 1rem;
-  font-family: "Gotham";
+  font-family: 'Gotham';
 }
 
 .playpausebtn {
   font-size: 1.8rem;
   cursor: pointer;
-  font-family: "Gotham";
+  font-family: 'Gotham';
 }
