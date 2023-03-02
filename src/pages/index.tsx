@@ -37,8 +37,10 @@ const Home: NextPage<Props> = () => {
           const copy = [...uris];
           const answerTrack = data.find(
             (option: { answer: any }) => !!option.answer,
-          ) as any;
-          copy.push(answerTrack);
+          ) as null;
+          if (answerTrack) {
+            copy.push(answerTrack);
+          }
           // console.log('index', copy);
           setUri(copy);
           return data;
