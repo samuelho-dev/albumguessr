@@ -7,6 +7,7 @@ import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useQuery } from '@tanstack/react-query';
+import { Track } from '../../types/types';
 
 interface Props {
   //THEME
@@ -36,7 +37,7 @@ const Home: NextPage<Props> = () => {
           const copy = [...uris];
           const answerTrack = data.find(
             (option: { answer: any }) => !!option.answer,
-          );
+          ) as any;
           copy.push(answerTrack);
           // console.log('index', copy);
           setUri(copy);

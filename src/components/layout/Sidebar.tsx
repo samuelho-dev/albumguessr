@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 function SideBar() {
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ['leaderboard'],
     async () => {
       const res = await fetch(`/api/leaderboards`);
@@ -15,8 +15,6 @@ function SideBar() {
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (isError) return <p>Error!</p>;
-
   return (
     <div id="sidebar">
       <h2>Leaderboard</h2>
@@ -28,6 +26,7 @@ function SideBar() {
 export default SideBar;
 
 function Leaderboard({ data }: any) {
+  console.log('leader', data);
   return (
     <div className="leaderboard-container">
       {data.map((user: any, i: number) => (
