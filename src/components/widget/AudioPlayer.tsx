@@ -15,15 +15,6 @@ const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
 
 function AudioPlayer({ answerTrack, uris, index }: Props) {
   const [playerState, setPlayerState] = useState<boolean>(false);
-  const [spotifyToken, setSpotifyToken] = useState<string>();
-
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session?.accessToken) {
-      setSpotifyToken(session.accessToken);
-    }
-  }, [session]);
 
   const mutation = useMutation({
     mutationFn: (endpoint: string) => {
