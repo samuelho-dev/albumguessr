@@ -91,7 +91,8 @@ export default NextAuth({
     },
     async signIn({ user, account }) {
       console.log({ user: user, account: account });
-      const { id, name, email } = user;
+      const { id, name, email, image } = user;
+      console.log('user', user);
       try {
         await prisma.user.upsert({
           where: { id },
@@ -99,6 +100,7 @@ export default NextAuth({
             id: id,
             name: name,
             email: email,
+            image: image,
             leaderboard: {
               create: { score: 0 },
             },
