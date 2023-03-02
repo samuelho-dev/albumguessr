@@ -30,7 +30,7 @@ export default SideBar;
 function Leaderboard({ data }: any) {
   return (
     <div className="leaderboard-container">
-      {data.map((user: any, i: Number) => (
+      {data.map((user: any, i: number) => (
         <div key={i} className="leaderboard-user">
           <ins>
             <p>{i + 1}</p>
