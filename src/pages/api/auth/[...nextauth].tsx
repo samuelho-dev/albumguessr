@@ -4,9 +4,14 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const scope = `user-read-recently-played user-read-playback-state 
-user-top-read user-modify-playback-state user-read-currently-playing  
-user-read-email user-read-private user-library-read`;
+const scope = `
+  streaming,
+  user-read-email,
+  user-read-private,
+  user-library-read,
+  user-library-modify,
+  user-read-playback-state,
+  user-modify-playback-state`;
 
 async function refreshAccessToken(token: any) {
   try {
