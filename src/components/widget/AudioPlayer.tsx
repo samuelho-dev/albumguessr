@@ -8,7 +8,6 @@ interface Props {
   answerTrack: any;
   uris: any;
   index: number;
-  session: MySession;
 }
 
 const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
