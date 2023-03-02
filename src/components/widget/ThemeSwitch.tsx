@@ -16,7 +16,7 @@ function ThemeSwitch(props: ThemeProps) {
       props.setTheme('light');
       setToggled(!toggled);
     }
-    console.log(props.theme, 'Theme log');
+    // console.log(props.theme, 'Theme log');
   };
   return (
     <div className="theme-btn" placeholder="blur" onClick={handleThemeChange}>

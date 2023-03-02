@@ -38,7 +38,7 @@ const Home: NextPage<Props> = () => {
             (option: { answer: any }) => !!option.answer,
           );
           copy.push(answerTrack);
-          console.log('index', copy);
+          // console.log('index', copy);
           setUri(copy);
           return data;
         })

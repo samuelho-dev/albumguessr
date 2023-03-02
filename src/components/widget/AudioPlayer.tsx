@@ -36,7 +36,7 @@ function AudioPlayer({ answerTrack, uris, index }: Props) {
       });
     },
     onSuccess: (data) => {
-      console.log(data, 'onsuccess');
+      // console.log(data, 'onsuccess');
       setPlayerState(!playerState);
     },
   });
@@ -47,7 +47,7 @@ function AudioPlayer({ answerTrack, uris, index }: Props) {
       mutation.mutate(endpoint);
     }
   };
-  console.log({ uris: uris, loc: uris[index], index: index });
+  // console.log({ uris: uris, loc: uris[index], index: index });
   return (
     <div className="audio-player-container">
       {spotifyToken && uris[index] && (

@@ -27,8 +27,7 @@ function SideBar() {
 
 export default SideBar;
 
-function Leaderboard({ data }) {
-  console.log('LEADERDA', data);
+function Leaderboard({ data }: any) {
   return (
     <div className="leaderboard-container">
       {data.map((user: any, i: Number) => (
