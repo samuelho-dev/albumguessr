@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import { MySession } from '../../../types/types';
 
 interface Props {
   answerTrack: any;
   uris: any;
   index: number;
+  session: MySession;
 }
 
 const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
@@ -15,6 +17,15 @@ const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
 
 function AudioPlayer({ answerTrack, uris, index }: Props) {
   const [playerState, setPlayerState] = useState<boolean>(false);
+  const [spotifyToken, setSpotifyToken] = useState<string>();
+
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      setSpotifyToken(session.accessToken as string);
+    }
+  }, [session]);
 
   const mutation = useMutation({
     mutationFn: (endpoint: string) => {
