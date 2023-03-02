@@ -9,9 +9,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession<MySession>({ req });
+  const session = (await getSession({ req })) as MySession;
 
-  if (!session) {
+  if (!session || !session.user) {
     res.status(404);
   }
   const { correct } = JSON.parse(req.body);
@@ -19,7 +19,7 @@ export default async function handler(
   try {
     if (correct) {
       await prisma.leaderboard.update({
-        where: { user_id: session?.user?.id },
+        where: { user_id: session?.user?.id as string },
         data: {
           score: { increment: 1 },
         },
@@ -27,7 +27,7 @@ export default async function handler(
     }
     await prisma.game.create({
       data: {
-        user_id: session?.user?.id,
+        user_id: session?.user?.id as string,
         correct: correct,
       },
     });
