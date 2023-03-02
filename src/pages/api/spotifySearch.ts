@@ -1,11 +1,12 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import getRandom from '../../../utils/getRandom';
 import { MySession } from '../../../types/types';
 import gameOptions from '../../../utils/gameOptions';
 
 export default async function handler(
-  req: any,
-  res: { status: (arg0: number) => void; send: (arg0: any) => any },
+  req: NextApiRequest,
+  res: NextApiResponse,
 ) {
   const session = await getSession({ req });
 
