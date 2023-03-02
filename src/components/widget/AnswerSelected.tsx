@@ -21,7 +21,7 @@ function AnswerSelected({ handleOptionSelected, answerTrack, correct }: Props) {
           <p>Released : {answerTrack.release_date}</p>
         </div>
 
-        {answerTrack.artists.map((artist, i) => (
+        {answerTrack.artists.map((artist: any, i: number) => (
           <a key={i} href={answerTrack.href}>
             <span>{artist.name}</span>
           </a>
