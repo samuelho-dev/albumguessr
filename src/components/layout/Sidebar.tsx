@@ -28,13 +28,24 @@ function SideBar() {
 export default SideBar;
 
 function Leaderboard({ data }) {
+  console.log('LEADERDA', data);
   return (
     <div className="leaderboard-container">
       {data.map((user: any, i: Number) => (
-        <div key={i}>
-          {/* <img src="/" alt="/" /> */}
+        <div key={i} className="leaderboard-user">
+          <ins>
+            <p>{i + 1}</p>
+          </ins>
+
+          {user.user.image ? (
+            <img
+              src={user.user.image}
+              alt="/"
+              className="leaderboard-user-image"
+            />
+          ) : null}
           <p>{user.user.name}</p>
-          <h5>{user.score}</h5>
+          <p>{user.score}</p>
         </div>
       ))}
     </div>
