@@ -9,7 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const session = await getSession<MySession>({ req });
 
   if (!session) {
     res.status(404);

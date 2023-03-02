@@ -1,6 +1,7 @@
-import { DefaultSession } from 'next-auth';
+import { Session } from 'next-auth';
 
 interface MyUser {
+  id: string | null;
   name: string | null;
   email: string | null;
   picture: string | null;
@@ -8,7 +9,7 @@ interface MyUser {
   accessToken: string | null;
 }
 
-export interface MySession extends DefaultSession {
+export interface MySession extends Session {
   user?: MyUser;
   expires: string;
 }
