@@ -13,6 +13,15 @@ const scope = `
   user-read-playback-state,
   user-modify-playback-state`;
 
+interface MyToken {
+  accessToken: string;
+  accessTokenExpires: number;
+  refreshToken: string;
+  user?: any;
+  error?: any;
+  expires_at: number;
+}
+
 async function refreshAccessToken(token: any) {
   try {
     const url = 'https://accounts.spotify.com/api/token';
@@ -42,7 +51,7 @@ async function refreshAccessToken(token: any) {
       accessToken: refreshedTokens.access_token,
       accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
-    };
+    } as MyToken;
   } catch (error) {
     console.error(error);
 
@@ -76,14 +85,14 @@ export default NextAuth({
       }
 
       // Return previous token if the access token has not expired yet
-      if (Date.now() < token.expires_at) {
+      if (Date.now() < Number(token.expires_at)) {
         return token;
       }
 
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.error = token.error;
@@ -92,7 +101,7 @@ export default NextAuth({
     async signIn({ user, account }) {
       console.log({ user: user, account: account });
       const { id, name, email, image } = user;
-      console.log('user', user);
+      // console.log('user', user);
       try {
         await prisma.user.upsert({
           where: { id },
