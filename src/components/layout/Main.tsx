@@ -6,9 +6,15 @@ import Game from '../widget/Game';
 interface Props {
   searchLoading: boolean;
   searchData: any;
+  answerTrack: any;
   fetchQuestion: Function;
 }
-function Main({ searchLoading, searchData, fetchQuestion }: Props) {
+function Main({
+  searchLoading,
+  searchData,
+  fetchQuestion,
+  answerTrack,
+}: Props) {
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -23,7 +29,11 @@ function Main({ searchLoading, searchData, fetchQuestion }: Props) {
         {searchLoading ? <span>Loading...</span> : null}
         {searchData ? (
           <div className="app-container">
-            <Game options={searchData} fetchQuestion={fetchQuestion} />
+            <Game
+              options={searchData}
+              answerTrack={answerTrack}
+              fetchQuestion={fetchQuestion}
+            />
           </div>
         ) : null}
       </div>
