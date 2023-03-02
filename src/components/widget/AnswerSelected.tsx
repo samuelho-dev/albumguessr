@@ -15,7 +15,7 @@ function AnswerSelected({ handleOptionSelected, answerTrack, correct }: Props) {
         <div>
           <img
             className="album-art-container"
-            src={answerTrack.images[0].url}
+            src={answerTrack?.images[0]?.url}
             alt="option img"
           ></img>
           <p>Released : {answerTrack.release_date}</p>

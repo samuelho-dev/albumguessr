@@ -17,16 +17,19 @@ export default function Game({ options, fetchQuestion, answerTrack }: Props) {
 
   const handleAnswerSelect = (track: any) => {
     setSelectedTrack(answerTrack);
-    setCorrect(false);
+    let answer = false;
+
     handleOptionSelected();
     fetchQuestion();
     if (track.answer) {
-      setCorrect(!correct);
+      answer = true;
     }
     fetch('/api/gameResults', {
       method: 'PUT',
-      body: JSON.stringify({ correct: correct }),
+      body: JSON.stringify({ correct: answer }),
     });
+    setCorrect(answer);
+    console.log(correct, 'correct state');
   };
 
   const handleOptionSelected = () => setOptionSelected(!optionSelected);

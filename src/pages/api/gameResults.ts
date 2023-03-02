@@ -15,7 +15,7 @@ export default async function handler(
     res.status(404);
   }
   const { correct } = JSON.parse(req.body);
-  // console.log({ game_result: correct });
+  console.log({ game_result: correct });
   try {
     if (correct) {
       await prisma.leaderboard.update({
