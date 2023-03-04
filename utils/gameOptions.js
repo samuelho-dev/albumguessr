@@ -15,7 +15,7 @@ export default function gameOptions(options) {
     };
     return gameOption;
   });
-  const answerIndex = getRandomSearch(1, gameOptions.length - 1, false);
+  const answerIndex = getRandomSearch(1, gameOptions?.length - 1, false);
   gameOptions[answerIndex].answer = true;
   return gameOptions;
 }
