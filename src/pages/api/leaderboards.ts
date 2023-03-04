@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { getSession } from 'next-auth/react';
+// import { getSession } from 'next-auth/react';
 
 const prisma = new PrismaClient();
 
@@ -8,11 +8,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  // const session = await getSession({ req });
 
-  if (!session) {
-    return res.status(401).end();
-  }
+  // if (!session) {
+  //   return res.status(401).end();
+  // }
 
   try {
     const leaderboard = await prisma.leaderboard.findMany({
@@ -26,11 +26,11 @@ export default async function handler(
         score: true,
       },
     });
-    console.log(leaderboard, 'HERE');
+    console.log(leaderboard, 'LEADERBOARD');
     return res.status(200).send(leaderboard);
   } catch (error) {
     console.error(error);
-    return res.status(500).end();
+    return res.status(500);
   } finally {
     prisma.$disconnect();
   }
