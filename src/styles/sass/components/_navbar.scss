@@ -1,4 +1,4 @@
-@use "../abstract/" as a;
+@use '../abstract/' as a;
 
 .navbar-container {
   display: flex;
@@ -52,4 +52,24 @@
 .spotify-btn {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.loggedin {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loggedin :hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.signout {
+  display: flex;
+  align-items: center;
+  height: 1rem;
+}
+.signout > p {
+  font-size: 0.8rem;
 }

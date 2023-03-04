@@ -1,4 +1,4 @@
-@use "../abstract/" as a;
+@use '../abstract/' as a;
 
 html,
 body,
@@ -8,8 +8,8 @@ body,
   height: 100%;
 }
 @font-face {
-  font-family: "Gotham";
-  src: url("/fonts/GothamMedium.ttf");
+  font-family: 'Gotham';
+  src: url('/fonts/GothamMedium.ttf');
   font-weight: 400;
   font-style: normal;
 }
@@ -33,7 +33,7 @@ button {
   }
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   .text {
     color: a.$white;
   }
@@ -44,7 +44,7 @@ button {
   }
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   .text {
     color: a.$black;
   }
@@ -75,7 +75,7 @@ button {
   }
 
   .spotify-inner > h4 {
-    color: white;
+    color: black;
   }
 
   .theme-btn {
