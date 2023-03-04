@@ -3,22 +3,23 @@ import { useQuery } from '@tanstack/react-query';
 function SideBar() {
   const { data, isLoading } = useQuery(
     ['leaderboard'],
-    async () => {
-      const res = await fetch(`/api/leaderboards`);
-      const data = await res.json();
-      return data;
+    () => {
+      return fetch(`/api/leaderboards`)
+        .then((res) => res.json())
+        .catch((err) => console.error(err));
     },
     {
       refetchInterval: 10000, // refetch every 10 seconds
     },
   );
-
-  if (isLoading) return <p>Loading...</p>;
+  // console.log(isLoading, 'leader data');
 
   return (
     <div id="sidebar">
       <h2>Leaderboard</h2>
-      <Leaderboard data={data} />
+      <div className="leaderboard-container">
+        {!isLoading ? <Leaderboard data={data} /> : <div>Loading ...</div>}
+      </div>
     </div>
   );
 }
@@ -26,10 +27,9 @@ function SideBar() {
 export default SideBar;
 
 function Leaderboard({ data }: any) {
-  console.log('leader', data);
   return (
-    <div className="leaderboard-container">
-      {data.map((user: any, i: number) => (
+    <>
+      {data?.map((user: any, i: number) => (
         <div key={i} className="leaderboard-user">
           <ins>
             <p>{i + 1}</p>
@@ -46,6 +46,6 @@ function Leaderboard({ data }: any) {
           <p>{user.score}</p>
         </div>
       ))}
-    </div>
+    </>
   );
 }

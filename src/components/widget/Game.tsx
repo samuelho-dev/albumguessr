@@ -38,7 +38,7 @@ export default function Game({ options, fetchQuestion, answerTrack }: Props) {
     <>
       {!optionSelected ? (
         <div className="game-container">
-          {options.map((track: any, i: number) => (
+          {options?.map((track: any, i: number) => (
             <div
               key={i}
               onClick={() => handleAnswerSelect(track)}

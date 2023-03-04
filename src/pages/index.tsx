@@ -7,7 +7,7 @@ import SideBar from '../components/layout/Sidebar';
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useQuery } from '@tanstack/react-query';
-import { Track } from '../../types/types';
+import { Session } from 'next-auth';
 
 interface Props {
   //THEME
@@ -57,6 +57,7 @@ const Home: NextPage<Props> = () => {
     setFetchNewGame(!fetchNewGame);
     setIndex(index + 1);
   };
+  if (search.error) return <div>nope</div>;
 
   return (
     <div id="root">

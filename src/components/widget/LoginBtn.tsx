@@ -11,10 +11,12 @@ export default function LoginBtn() {
   // console.log(spotify.data, 'login btn');
   if (session) {
     return (
-      <div>
-        {`signed in as ${session.user?.name}`}
-        <br />
-        <button onClick={() => signOut()}>sign out</button>
+      <div className="loggedin">
+        <p>Welcome {session.user?.name}!</p>
+
+        <button className="signout" onClick={() => signOut()}>
+          <p>sign out</p>
+        </button>
       </div>
     );
   }
