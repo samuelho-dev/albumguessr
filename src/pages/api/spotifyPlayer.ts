@@ -1,26 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 import { MySession } from '../../../types/types';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const secret = process.env.NEXTAUTH_SECRET;
+  const token = await getToken({ req, secret });
 
-  if (!session) {
+  if (!token) {
     res.status(404);
   }
 
   //BODY ={ endpoint: 'pause', uri: 'spotify:album:6bfrlCHzoneiMotyuHAsFE' }
 
   const body = JSON.parse(req.body);
-  // console.log({ body: body, session: session?.user, method: req.method });
+  // console.log({ body: body, token: token?.user, method: req.method });
   try {
     fetch(`https://api.spotify.com/me/player/${body.endpoint}`, {
       method: req.method,
       headers: {
-        Authorization: `Bearer ${session?.accessToken}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         context_uri: body.uri,

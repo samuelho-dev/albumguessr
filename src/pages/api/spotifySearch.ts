@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 import getRandom from '../../../utils/getRandom';
 import { MySession } from '../../../types/types';
 import gameOptions from '../../../utils/gameOptions';
@@ -8,9 +8,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const secret = process.env.NEXTAUTH_SECRET;
+  const token = await getToken({ req, secret });
 
-  if (!session) {
+  if (!token) {
     res.status(404);
   }
   const query = {
@@ -22,7 +23,7 @@ export default async function handler(
       `https://api.spotify.com/v1/search?q=${query.q}&type=album&market=ES&limit=4&offset=${query.offset}`,
       {
         headers: {
-          Authorization: `Bearer ${<MySession>session?.accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     )

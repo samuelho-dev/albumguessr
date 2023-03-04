@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+
 import { MySession } from '../../../types/types';
 import { PrismaClient } from '@prisma/client';
+import { getSession } from 'next-auth/react';
 
 const prisma = new PrismaClient();
 
@@ -9,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = (await getSession({ req })) as MySession;
+  const session = await getSession({ req });
 
   if (!session || !session.user) {
     res.status(404);
