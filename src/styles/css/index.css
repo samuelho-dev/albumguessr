@@ -214,6 +214,17 @@ button {
   gap: 1rem;
 }
 
+.answer-artist {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.selected-answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .navbar-container {
   display: flex;
   height: 100%;

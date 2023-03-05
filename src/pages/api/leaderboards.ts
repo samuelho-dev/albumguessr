@@ -26,7 +26,7 @@ export default async function handler(
         score: true,
       },
     });
-    console.log(leaderboard, 'LEADERBOARD');
+    // console.log(leaderboard, 'LEADERBOARD');
     return res.status(200).send(leaderboard);
   } catch (error) {
     console.error(error);
