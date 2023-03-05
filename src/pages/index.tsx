@@ -74,7 +74,12 @@ const Home: NextPage<Props> = () => {
           answerTrack={answerTrack}
           fetchQuestion={fetchQuestion}
         />
-        <Footer answerTrack={answerTrack} uris={uris} index={index} />
+        <Footer
+          answerTrack={answerTrack}
+          uris={uris}
+          index={index}
+          theme={theme!}
+        />
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ interface Props {
   answerTrack: any;
   uris: any;
   index: number;
+  theme: string;
 }
-function Footer({ answerTrack, uris, index }: Props) {
+function Footer({ answerTrack, uris, index, theme }: Props) {
   return (
     <IconContext.Provider value={{ className: 'react-icons' }}>
       <footer id="footer">
@@ -23,7 +24,12 @@ function Footer({ answerTrack, uris, index }: Props) {
             </div>
           </div>
         </a>
-        <AudioPlayer answerTrack={answerTrack} uris={uris} index={index} />
+        <AudioPlayer
+          answerTrack={answerTrack}
+          uris={uris}
+          index={index}
+          theme={theme}
+        />
         <FaRegShareSquare />
       </footer>
     </IconContext.Provider>

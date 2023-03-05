@@ -128,6 +128,7 @@ button {
 [data-theme=light] .theme-btn {
   background: rgb(219, 163, 20);
   box-shadow: 0 0.2rem 0.2rem 0 rgb(149, 119, 44) inset;
+  justify-content: flex-end;
 }
 [data-theme=light] .react-icons {
   color: black;

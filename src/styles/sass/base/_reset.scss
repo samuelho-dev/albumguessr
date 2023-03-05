@@ -81,6 +81,8 @@ button {
   .theme-btn {
     background: rgba(219, 163, 20, 1);
     box-shadow: 0 0.2rem 0.2rem 0 rgb(149, 119, 44) inset;
+
+    justify-content: flex-end;
   }
 
   .react-icons {

@@ -8,15 +8,31 @@ interface Props {
   answerTrack: any;
   uris: any;
   index: number;
+  theme: string;
 }
+
+const lightAudioStyle = {
+  color: 'black',
+  bgColor: 'white',
+  trackNameColor: 'black',
+  trackArtistColor: 'black',
+};
+
+const darkAudioStyle = {
+  color: 'white',
+  bgColor: 'black',
+  trackNameColor: 'white',
+  trackArtistColor: 'white',
+};
 
 const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
   ssr: false,
 });
 
-function AudioPlayer({ answerTrack, uris, index }: Props) {
+function AudioPlayer({ answerTrack, uris, index, theme }: Props) {
   const [playerState, setPlayerState] = useState<boolean>(false);
   const [spotifyToken, setSpotifyToken] = useState<string>();
+  const [playerStyle, setPlayerStyle] = useState(darkAudioStyle);
 
   const { data: session } = useSession();
 
@@ -25,6 +41,17 @@ function AudioPlayer({ answerTrack, uris, index }: Props) {
       setSpotifyToken(session.accessToken as string);
     }
   }, [session]);
+
+  useEffect(() => {
+    console.log(theme, 'audio');
+    if (theme === 'light') {
+      console.log(lightAudioStyle, 'light');
+      setPlayerStyle(lightAudioStyle);
+    } else if (theme === 'dark') {
+      console.log(darkAudioStyle, 'dark');
+      setPlayerStyle(darkAudioStyle);
+    }
+  }, [theme]);
 
   const mutation = useMutation({
     mutationFn: (endpoint: string) => {
@@ -56,12 +83,7 @@ function AudioPlayer({ answerTrack, uris, index }: Props) {
           uris={uris[index].uri}
           hideAttribution={true}
           hideCoverArt={true}
-          styles={{
-            color: 'white',
-            bgColor: '#000000',
-            trackNameColor: 'black',
-            trackArtistColor: 'black',
-          }}
+          styles={playerStyle}
           layout={'compact'}
           token={spotifyToken}
         />
