@@ -1,16 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getToken } from 'next-auth/jwt';
 import getRandom from '../../../utils/getRandom';
 import { MySession } from '../../../types/types';
 import gameOptions from '../../../utils/gameOptions';
+import { getSession } from 'next-auth/react';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const secret = process.env.NEXTAUTH_SECRET;
-  const token = await getToken({ req, secret });
-
+  const session = await getSession({ req });
+  const token = session?.accessToken;
   if (!token) {
     res.status(404);
   }

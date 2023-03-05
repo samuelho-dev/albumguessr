@@ -76,6 +76,7 @@ export default NextAuth({
     async jwt({ token, user, account }) {
       // console.log({ token: token.exp, date: Date.now() }, 'JWT');
       if (account && user) {
+        token.accessToken = account.access_token;
         return {
           accessToken: account.access_token,
           accessTokenExpires: token.expires_at,

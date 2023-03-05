@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   const secret = process.env.NEXTAUTH_SECRET;
   const token = await getToken({ req, secret });
-
+  console.log(token, 'token');
   if (!token) {
     res.status(404);
   }
