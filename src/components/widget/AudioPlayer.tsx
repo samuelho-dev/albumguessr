@@ -14,15 +14,15 @@ interface Props {
 const lightAudioStyle = {
   color: 'black',
   bgColor: 'white',
-  trackNameColor: 'black',
-  trackArtistColor: 'black',
+  trackNameColor: 'white',
+  trackArtistColor: 'white',
 };
 
 const darkAudioStyle = {
   color: 'white',
   bgColor: 'black',
-  trackNameColor: 'white',
-  trackArtistColor: 'white',
+  trackNameColor: 'black',
+  trackArtistColor: 'black',
 };
 
 const SpotifyPlayer = dynamic(() => import('react-spotify-web-playback'), {
